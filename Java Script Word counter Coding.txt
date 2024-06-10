@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="text-center bg-yellow-200">
+    <h1 class=" font-bold  text-2xl mt-4  ">Word Counter Application</h1>
+    <textarea onkeyup="KeyHasBeenPressed()" class=" border border-black rounded-lg mt-3 mb-3 w-9/12 p-4"  name="Counter" id="" cols="30" rows="10"></textarea>
+    <p >Total Words : <span class="wordscount">0</span></p>
+    <p >Total Characters : <span class="charcount">0</span></p>
+    <p>Total Allowed Characters : 500 || Total Characters left : <span class="limitChar">500</span></p>
+    <button class="border  font-semi bold border-black w-32 mt-4 rounded-md bg-purple-400	 ClearButton">Clear</button>
+    <script src="../Java script/script.js"></script>
+</body>
+</html>
+
+
+
+JS Coding....@@@@@
+
+
+function KeyHasBeenPressed() {
+    let TextAreaContent = document.querySelector('textarea')
+    let countCharacters = document.querySelector('.charcount')
+
+    countCharacters.innerHTML = String(TextAreaContent.value).length
+
+    let CountWords =  document.querySelector('.wordscount')
+    // Used regular expression
+    let WordsArray = String(TextAreaContent.value).split(/\s+/)
+
+    // Filter out empty words
+    WordsArray = WordsArray.filter(word => word.trim() !== "")
+
+    CountWords.innerHTML = WordsArray.length
+
+    let LimitChar = 500
+
+    let limittedchar = document.querySelector('.limitChar')
+
+    limittedchar.innerHTML = LimitChar - TextAreaContent.value.length
+
+    if (TextAreaContent.value.length > 500) {
+        TextAreaContent.value = String(TextAreaContent.value).substring(0, LimitChar)
+    }
+}
+
+document.querySelector('.ClearButton').addEventListener('click', () => {
+    document.querySelector('textarea').value = ''
+    document.querySelector('.charcount').innerHTML = 0;
+    document.querySelector('.wordscount').innerHTML = 0;
+    document.querySelector('.limitChar').innerHTML = 500;
+}) 
+
+
